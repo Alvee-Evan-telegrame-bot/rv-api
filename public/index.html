@@ -8,9 +8,9 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       min-height: 100vh;
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-      background-size: 200% 200%;
-      animation: bgShift 12s ease infinite;
+      background: linear-gradient(135deg, #1a0033, #3d0a4f, #5c0f6b, #1a0033);
+      background-size: 300% 300%;
+      animation: bgShift 10s ease infinite;
       font-family: 'Segoe UI', sans-serif;
       color: white;
       padding: 20px;
@@ -21,6 +21,15 @@
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
+    }
+
+    /* Hacker-style pink matrix rain */
+    #matrixCanvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.35;
+      pointer-events: none;
     }
 
     /* Floating decorative emojis */
@@ -57,8 +66,8 @@
       height: 90px;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid rgba(255,255,255,0.25);
-      box-shadow: 0 0 25px rgba(240,147,251,0.5);
+      border: 3px solid rgba(255,105,220,0.5);
+      box-shadow: 0 0 25px rgba(255,20,147,0.6);
       animation: floatLogo 3.5s ease-in-out infinite, glow 2.5s ease-in-out infinite;
     }
     @keyframes floatLogo {
@@ -66,14 +75,14 @@
       50% { transform: translateY(-10px); }
     }
     @keyframes glow {
-      0%, 100% { box-shadow: 0 0 20px rgba(240,147,251,0.4); }
-      50% { box-shadow: 0 0 35px rgba(245,87,108,0.7); }
+      0%, 100% { box-shadow: 0 0 20px rgba(255,20,147,0.45); }
+      50% { box-shadow: 0 0 40px rgba(255,0,200,0.85); }
     }
 
     header h1 {
       font-size: 32px;
       font-weight: 800;
-      background: linear-gradient(90deg, #f093fb, #f5576c, #f093fb);
+      background: linear-gradient(90deg, #ff6fd8, #ff2d95, #ff9ff3, #ff6fd8);
       background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -83,15 +92,15 @@
     @keyframes shine {
       to { background-position: 200% center; }
     }
-    header p { color: rgba(255,255,255,0.5); font-size: 14px; }
+    header p { color: rgba(255,182,230,0.7); font-size: 14px; }
     .badge {
       display: inline-block;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,105,220,0.1);
+      border: 1px solid rgba(255,105,220,0.3);
       border-radius: 50px;
       padding: 4px 14px;
       font-size: 12px;
-      color: #a8ff78;
+      color: #ff6fd8;
       margin-top: 10px;
       animation: pulse 1.8s ease-in-out infinite;
     }
@@ -101,18 +110,19 @@
     }
 
     .card {
-      background: rgba(255,255,255,0.06);
+      background: rgba(255,105,220,0.06);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,105,220,0.18);
       border-radius: 16px;
       padding: 24px;
       margin-bottom: 16px;
       animation: fadeInUp 0.7s ease both;
-      transition: transform 0.25s ease, border-color 0.25s ease;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
     }
     .card:hover {
       transform: translateY(-4px);
-      border-color: rgba(240,147,251,0.4);
+      border-color: rgba(255,45,149,0.6);
+      box-shadow: 0 0 25px rgba(255,45,149,0.25);
     }
     .card:nth-of-type(1) { animation-delay: 0.05s; }
     .card:nth-of-type(2) { animation-delay: 0.15s; }
@@ -125,14 +135,14 @@
     .card h2 {
       font-size: 16px;
       font-weight: 600;
-      color: #f093fb;
+      color: #ff6fd8;
       margin-bottom: 16px;
     }
     .total-box { text-align: center; padding: 10px; }
     .total-box .number {
       font-size: 48px;
       font-weight: 800;
-      background: linear-gradient(90deg, #a8ff78, #78ffd6, #a8ff78);
+      background: linear-gradient(90deg, #ff2d95, #ff9ff3, #ff2d95);
       background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -151,23 +161,23 @@
       flex: 1;
       padding: 12px 16px;
       border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.15);
-      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,105,220,0.25);
+      background: rgba(255,105,220,0.07);
       color: white;
       font-size: 13px;
       outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
     .input-row input:focus {
-      border-color: #f093fb;
-      box-shadow: 0 0 0 3px rgba(240,147,251,0.15);
+      border-color: #ff2d95;
+      box-shadow: 0 0 0 3px rgba(255,45,149,0.2);
     }
-    .input-row input::placeholder { color: rgba(255,255,255,0.3); }
+    .input-row input::placeholder { color: rgba(255,182,230,0.4); }
     .btn {
       padding: 12px 20px;
       border: none;
       border-radius: 10px;
-      background: linear-gradient(90deg, #f093fb, #f5576c);
+      background: linear-gradient(90deg, #ff2d95, #ff6fd8);
       color: white;
       font-size: 14px;
       font-weight: 700;
@@ -191,8 +201,8 @@
       display: none;
       animation: fadeInUp 0.3s ease;
     }
-    .msg.success { background: rgba(168,255,120,0.15); color: #a8ff78; border: 1px solid rgba(168,255,120,0.3); }
-    .msg.error { background: rgba(255,80,80,0.15); color: #ff8080; border: 1px solid rgba(255,80,80,0.3); }
+    .msg.success { background: rgba(255,105,220,0.15); color: #ff9ff3; border: 1px solid rgba(255,105,220,0.35); }
+    .msg.error { background: rgba(255,45,110,0.15); color: #ff6f9c; border: 1px solid rgba(255,45,110,0.35); }
 
     /* Video grid */
     .video-grid {
@@ -202,17 +212,17 @@
       margin-top: 10px;
     }
     .video-item {
-      background: rgba(0,0,0,0.3);
+      background: rgba(30,0,25,0.4);
       border-radius: 12px;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,105,220,0.15);
       position: relative;
       animation: fadeInUp 0.5s ease both;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     .video-item:hover {
       transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 8px 20px rgba(240,147,251,0.25);
+      box-shadow: 0 8px 22px rgba(255,45,149,0.35);
     }
     .video-item video {
       width: 100%;
@@ -228,28 +238,31 @@
       padding: 2px 8px;
       border-radius: 20px;
       font-size: 11px;
-      color: #f093fb;
+      color: #ff6fd8;
     }
     .load-more {
       width: 100%;
       padding: 12px;
       margin-top: 14px;
-      border: 1px solid rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,105,220,0.2);
       border-radius: 10px;
-      background: rgba(255,255,255,0.05);
+      background: rgba(255,105,220,0.05);
       color: white;
       font-size: 14px;
       cursor: pointer;
       transition: background 0.2s, transform 0.15s;
     }
-    .load-more:hover { background: rgba(255,255,255,0.1); transform: scale(1.02); }
-    .empty { text-align: center; color: rgba(255,255,255,0.3); padding: 20px; font-size: 14px; }
+    .load-more:hover { background: rgba(255,105,220,0.12); transform: scale(1.02); }
+    .empty { text-align: center; color: rgba(255,182,230,0.35); padding: 20px; font-size: 14px; }
 
-    footer { text-align: center; padding: 30px 0 20px; font-size: 12px; color: rgba(255,255,255,0.2); }
-    footer a { color: #f093fb; text-decoration: none; }
+    footer { text-align: center; padding: 30px 0 20px; font-size: 12px; color: rgba(255,182,230,0.25); }
+    footer a { color: #ff6fd8; text-decoration: none; }
   </style>
 </head>
 <body>
+
+<!-- Pink hacker-style matrix rain -->
+<canvas id="matrixCanvas"></canvas>
 
 <!-- Floating decorative emojis -->
 <div class="floaties" id="floaties"></div>
@@ -259,47 +272,47 @@
   <!-- Header -->
   <header>
     <img class="logo" src="https://i.imgur.com/6sDv1tF.jpeg" alt="RV API Logo" />
-    <h1>🎬 RV API ✨</h1>
-    <p>💌 Random Video API — Powered by Rocky 💫</p>
-    <span class="badge">🟢 Live</span>
+    <h1>🎬✨ RV API 💖✨</h1>
+    <p>💌🌸 Random Video API — Powered by Rocky 💫🦋</p>
+    <span class="badge">🟢 Live 🔥</span>
   </header>
 
   <!-- Total count -->
   <div class="card">
-    <h2>📊 Total Videos</h2>
+    <h2>📊 Total Videos 💎</h2>
     <div class="total-box">
       <div class="number" id="totalCount">...</div>
-      <div class="label">✨ Videos Available</div>
+      <div class="label">✨🌟 Videos Available 🌟✨</div>
     </div>
   </div>
 
   <!-- Add video -->
   <div class="card">
-    <h2>➕ Add New Video 🌟</h2>
+    <h2>➕✨ Add New Video 🌟💕</h2>
     <div class="input-row">
       <input type="text" id="videoUrl" placeholder="https://i.imgur.com/xxx.mp4" />
     </div>
     <div class="input-row">
       <input type="password" id="secretKey" placeholder="Secret key দাও 🔑" />
-      <button class="btn" onclick="addVideo()">Add 💫</button>
+      <button class="btn" onclick="addVideo()">Add 💫🎀</button>
     </div>
     <div class="msg" id="addMsg"></div>
   </div>
 
   <!-- Video list -->
   <div class="card">
-    <h2>🎬 All Videos 💖</h2>
+    <h2>🎬💖 All Videos 💖🎬</h2>
     <div class="video-grid" id="videoGrid">
-      <div class="empty">Loading... ⏳</div>
+      <div class="empty">Loading... ⏳✨</div>
     </div>
     <button class="load-more" id="loadMoreBtn" onclick="loadMore()" style="display:none">
-      ✨ আরো দেখাও ✨
+      ✨🎀 আরো দেখাও 🎀✨
     </button>
   </div>
 
   <footer>
-    © 2025 Rocky 💌 •
-    <a href="https://github.com/oldacountrocky303-ship-it/rv-api" target="_blank">GitHub</a>
+    © 2025 Rocky 💌🌸 •
+    <a href="https://github.com/oldacountrocky303-ship-it/rv-api" target="_blank">GitHub</a> 💫
   </footer>
 
 </div>
@@ -308,21 +321,65 @@
   let allVideos = [];
   let shown = 6;
 
-  // Sprinkle some floating decorative emojis across the background
+  // Sprinkle LOTS of floating decorative emojis across the background
   (function spawnFloaties() {
-    const emojis = ["💌", "✨", "💫", "🌟", "💖", "🎬"];
+    const emojis = [
+      "💌", "✨", "💫", "🌟", "💖", "🎬", "💕", "💓", "💗", "💞",
+      "🌸", "🎀", "💎", "🔥", "🦋", "🌺", "💝", "⭐", "🪄", "🌷",
+      "💘", "🎉", "🌈", "💟", "🩷"
+    ];
     const wrap = document.getElementById("floaties");
-    const count = 14;
+    const count = 45;
     for (let i = 0; i < count; i++) {
       const el = document.createElement("span");
       el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
       el.style.left = Math.random() * 100 + "vw";
-      el.style.fontSize = (14 + Math.random() * 14) + "px";
-      const duration = 10 + Math.random() * 14;
+      el.style.fontSize = (14 + Math.random() * 16) + "px";
+      const duration = 8 + Math.random() * 16;
       el.style.animationDuration = duration + "s";
       el.style.animationDelay = (Math.random() * duration) + "s";
       wrap.appendChild(el);
     }
+  })();
+
+  // Pink "hacker" matrix rain effect
+  (function matrixRain() {
+    const canvas = document.getElementById("matrixCanvas");
+    const ctx = canvas.getContext("2d");
+    let width, height, columns, drops;
+    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン♥✧☆彡";
+    const fontSize = 16;
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      columns = Math.floor(width / fontSize);
+      drops = new Array(columns).fill(1);
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    function draw() {
+      ctx.fillStyle = "rgba(20,0,20,0.12)";
+      ctx.fillRect(0, 0, width, height);
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        const grad = ctx.createLinearGradient(0, 0, 0, height);
+        grad.addColorStop(0, "#ff9ff3");
+        grad.addColorStop(1, "#ff2d95");
+        ctx.fillStyle = grad;
+        ctx.font = fontSize + "px monospace";
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
   })();
 
   window.onload = async () => {
