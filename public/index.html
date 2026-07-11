@@ -9,20 +9,79 @@
     body {
       min-height: 100vh;
       background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      background-size: 200% 200%;
+      animation: bgShift 12s ease infinite;
       font-family: 'Segoe UI', sans-serif;
       color: white;
       padding: 20px;
+      overflow-x: hidden;
+      position: relative;
     }
-    .container { max-width: 650px; margin: 0 auto; }
-    header { text-align: center; padding: 40px 0 30px; }
-    header .emoji { font-size: 64px; }
+    @keyframes bgShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Floating decorative emojis */
+    .floaties {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .floaties span {
+      position: absolute;
+      bottom: -40px;
+      font-size: 22px;
+      opacity: 0.55;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      100% { transform: translateY(-110vh) rotate(25deg); opacity: 0; }
+    }
+
+    .container { max-width: 650px; margin: 0 auto; position: relative; z-index: 1; }
+
+    header { text-align: center; padding: 40px 0 30px; animation: fadeInDown 0.8s ease; }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header .logo {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(255,255,255,0.25);
+      box-shadow: 0 0 25px rgba(240,147,251,0.5);
+      animation: floatLogo 3.5s ease-in-out infinite, glow 2.5s ease-in-out infinite;
+    }
+    @keyframes floatLogo {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(240,147,251,0.4); }
+      50% { box-shadow: 0 0 35px rgba(245,87,108,0.7); }
+    }
+
     header h1 {
       font-size: 32px;
       font-weight: 800;
-      background: linear-gradient(90deg, #f093fb, #f5576c);
+      background: linear-gradient(90deg, #f093fb, #f5576c, #f093fb);
+      background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin: 10px 0 6px;
+      margin: 14px 0 6px;
+      animation: shine 3s linear infinite;
+    }
+    @keyframes shine {
+      to { background-position: 200% center; }
     }
     header p { color: rgba(255,255,255,0.5); font-size: 14px; }
     .badge {
@@ -34,7 +93,13 @@
       font-size: 12px;
       color: #a8ff78;
       margin-top: 10px;
+      animation: pulse 1.8s ease-in-out infinite;
     }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.55; }
+    }
+
     .card {
       background: rgba(255,255,255,0.06);
       backdrop-filter: blur(10px);
@@ -42,7 +107,21 @@
       border-radius: 16px;
       padding: 24px;
       margin-bottom: 16px;
+      animation: fadeInUp 0.7s ease both;
+      transition: transform 0.25s ease, border-color 0.25s ease;
     }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(240,147,251,0.4);
+    }
+    .card:nth-of-type(1) { animation-delay: 0.05s; }
+    .card:nth-of-type(2) { animation-delay: 0.15s; }
+    .card:nth-of-type(3) { animation-delay: 0.25s; }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .card h2 {
       font-size: 16px;
       font-weight: 600;
@@ -53,9 +132,12 @@
     .total-box .number {
       font-size: 48px;
       font-weight: 800;
-      background: linear-gradient(90deg, #a8ff78, #78ffd6);
+      background: linear-gradient(90deg, #a8ff78, #78ffd6, #a8ff78);
+      background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      animation: shine 3s linear infinite;
+      display: inline-block;
     }
     .total-box .label { font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 4px; }
 
@@ -74,6 +156,11 @@
       color: white;
       font-size: 13px;
       outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .input-row input:focus {
+      border-color: #f093fb;
+      box-shadow: 0 0 0 3px rgba(240,147,251,0.15);
     }
     .input-row input::placeholder { color: rgba(255,255,255,0.3); }
     .btn {
@@ -85,10 +172,11 @@
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
-      transition: opacity 0.2s;
+      transition: opacity 0.2s, transform 0.15s;
       white-space: nowrap;
     }
-    .btn:hover { opacity: 0.85; }
+    .btn:hover { opacity: 0.85; transform: scale(1.04); }
+    .btn:active { transform: scale(0.97); }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .btn-full {
       width: 100%;
@@ -101,6 +189,7 @@
       border-radius: 10px;
       font-size: 13px;
       display: none;
+      animation: fadeInUp 0.3s ease;
     }
     .msg.success { background: rgba(168,255,120,0.15); color: #a8ff78; border: 1px solid rgba(168,255,120,0.3); }
     .msg.error { background: rgba(255,80,80,0.15); color: #ff8080; border: 1px solid rgba(255,80,80,0.3); }
@@ -118,6 +207,12 @@
       overflow: hidden;
       border: 1px solid rgba(255,255,255,0.1);
       position: relative;
+      animation: fadeInUp 0.5s ease both;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .video-item:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(240,147,251,0.25);
     }
     .video-item video {
       width: 100%;
@@ -145,9 +240,9 @@
       color: white;
       font-size: 14px;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.15s;
     }
-    .load-more:hover { background: rgba(255,255,255,0.1); }
+    .load-more:hover { background: rgba(255,255,255,0.1); transform: scale(1.02); }
     .empty { text-align: center; color: rgba(255,255,255,0.3); padding: 20px; font-size: 14px; }
 
     footer { text-align: center; padding: 30px 0 20px; font-size: 12px; color: rgba(255,255,255,0.2); }
@@ -155,14 +250,18 @@
   </style>
 </head>
 <body>
+
+<!-- Floating decorative emojis -->
+<div class="floaties" id="floaties"></div>
+
 <div class="container">
 
   <!-- Header -->
   <header>
-    <div class="emoji">🎬</div>
-    <h1>RV API</h1>
-    <p>Random Video API — Powered by Rocky</p>
-    <span class="badge">● Live</span>
+    <img class="logo" src="https://i.imgur.com/6sDv1tF.jpeg" alt="RV API Logo" />
+    <h1>🎬 RV API ✨</h1>
+    <p>💌 Random Video API — Powered by Rocky 💫</p>
+    <span class="badge">🟢 Live</span>
   </header>
 
   <!-- Total count -->
@@ -170,36 +269,36 @@
     <h2>📊 Total Videos</h2>
     <div class="total-box">
       <div class="number" id="totalCount">...</div>
-      <div class="label">Videos Available</div>
+      <div class="label">✨ Videos Available</div>
     </div>
   </div>
 
   <!-- Add video -->
   <div class="card">
-    <h2>➕ Add New Video</h2>
+    <h2>➕ Add New Video 🌟</h2>
     <div class="input-row">
       <input type="text" id="videoUrl" placeholder="https://i.imgur.com/xxx.mp4" />
     </div>
     <div class="input-row">
-      <input type="password" id="secretKey" placeholder="Secret key দাও" />
-      <button class="btn" onclick="addVideo()">Add</button>
+      <input type="password" id="secretKey" placeholder="Secret key দাও 🔑" />
+      <button class="btn" onclick="addVideo()">Add 💫</button>
     </div>
     <div class="msg" id="addMsg"></div>
   </div>
 
   <!-- Video list -->
   <div class="card">
-    <h2>🎬 All Videos</h2>
+    <h2>🎬 All Videos 💖</h2>
     <div class="video-grid" id="videoGrid">
-      <div class="empty">Loading...</div>
+      <div class="empty">Loading... ⏳</div>
     </div>
     <button class="load-more" id="loadMoreBtn" onclick="loadMore()" style="display:none">
-      আরো দেখাও
+      ✨ আরো দেখাও ✨
     </button>
   </div>
 
   <footer>
-    © 2025 Rocky •
+    © 2025 Rocky 💌 •
     <a href="https://github.com/oldacountrocky303-ship-it/rv-api" target="_blank">GitHub</a>
   </footer>
 
@@ -208,6 +307,23 @@
 <script>
   let allVideos = [];
   let shown = 6;
+
+  // Sprinkle some floating decorative emojis across the background
+  (function spawnFloaties() {
+    const emojis = ["💌", "✨", "💫", "🌟", "💖", "🎬"];
+    const wrap = document.getElementById("floaties");
+    const count = 14;
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement("span");
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.fontSize = (14 + Math.random() * 14) + "px";
+      const duration = 10 + Math.random() * 14;
+      el.style.animationDuration = duration + "s";
+      el.style.animationDelay = (Math.random() * duration) + "s";
+      wrap.appendChild(el);
+    }
+  })();
 
   window.onload = async () => {
     await loadVideos();
@@ -228,7 +344,7 @@
       allVideos = await res.json();
       renderVideos();
     } catch(e) {
-      document.getElementById("videoGrid").innerHTML = '<div class="empty">Video load হয়নি</div>';
+      document.getElementById("videoGrid").innerHTML = '<div class="empty">Video load হয়নি 😢</div>';
     }
   }
 
@@ -237,15 +353,15 @@
     const loadBtn = document.getElementById("loadMoreBtn");
 
     if (allVideos.length === 0) {
-      grid.innerHTML = '<div class="empty">কোনো video নেই</div>';
+      grid.innerHTML = '<div class="empty">কোনো video নেই 😔</div>';
       return;
     }
 
     const toShow = allVideos.slice(0, shown);
     grid.innerHTML = toShow.map((v, i) => `
-      <div class="video-item">
+      <div class="video-item" style="animation-delay: ${i * 0.06}s">
         <video src="${v.url}" controls muted playsinline></video>
-        <div class="video-num">#${i + 1}</div>
+        <div class="video-num">✨ #${i + 1}</div>
       </div>
     `).join("");
 
@@ -279,7 +395,7 @@
       const data = await res.json();
 
       if (data.success) {
-        showMsg(`✅ Video add হয়েছে! Total: ${data.total}`, "success");
+        showMsg(`✅ Video add হয়েছে! Total: ${data.total} 🎉`, "success");
         document.getElementById("videoUrl").value = "";
         await loadVideos();
       } else {
