@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const GITHUB_REPO = "Rocky-mastermind/rv-api";
+const GITHUB_REPO = "Alvee-Evan-telegrame-bot/rv-api";
 const FILE_PATH = "data/videos.json";
 
 const BLOCKED_KEYWORDS = [
