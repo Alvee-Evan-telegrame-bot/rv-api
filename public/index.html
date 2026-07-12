@@ -55,6 +55,79 @@
 
     .container { max-width: 650px; margin: 0 auto; position: relative; z-index: 1; }
 
+    /* Welcome splash screen */
+    #splash {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, #3d0a4f 0%, #1a0033 75%);
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #splash.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    #splash .splash-logo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(255,105,220,0.6);
+      box-shadow: 0 0 40px rgba(255,20,147,0.7);
+      animation: splashPop 0.7s cubic-bezier(.34,1.56,.64,1) both,
+                 floatLogo 3.5s ease-in-out infinite 0.7s,
+                 glow 2.5s ease-in-out infinite 0.7s;
+    }
+    @keyframes splashPop {
+      0% { transform: scale(0.3); opacity: 0; }
+      60% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    #splash h2 {
+      margin-top: 22px;
+      font-size: 26px;
+      font-weight: 800;
+      background: linear-gradient(90deg, #ff6fd8, #ff2d95, #ff9ff3, #ff6fd8);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 3s linear infinite, fadeInUp 0.6s ease 0.3s both;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+    #splash p {
+      margin-top: 10px;
+      font-size: 13px;
+      color: rgba(255,182,230,0.75);
+      animation: fadeInUp 0.6s ease 0.5s both;
+      text-align: center;
+      padding: 0 30px;
+    }
+    #splash .splash-dots {
+      margin-top: 24px;
+      display: flex;
+      gap: 8px;
+      animation: fadeInUp 0.6s ease 0.7s both;
+    }
+    #splash .splash-dots span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #ff6fd8;
+      animation: dotBounce 1s ease-in-out infinite;
+    }
+    #splash .splash-dots span:nth-child(2) { animation-delay: 0.15s; }
+    #splash .splash-dots span:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes dotBounce {
+      0%, 100% { transform: translateY(0); opacity: 0.4; }
+      50% { transform: translateY(-8px); opacity: 1; }
+    }
+
     header { text-align: center; padding: 40px 0 30px; animation: fadeInDown 0.8s ease; }
     @keyframes fadeInDown {
       from { opacity: 0; transform: translateY(-20px); }
@@ -261,6 +334,14 @@
 </head>
 <body>
 
+<!-- Welcome splash screen -->
+<div id="splash">
+  <img class="splash-logo" src="https://i.imgur.com/6sDv1tF.jpeg" alt="Romantic Shadow API Logo" />
+  <h2>Welcome to Romantic Shadow API</h2>
+  <p>Loading your videos, please wait...</p>
+  <div class="splash-dots"><span></span><span></span><span></span></div>
+</div>
+
 <!-- Pink hacker-style matrix rain -->
 <canvas id="matrixCanvas"></canvas>
 
@@ -383,6 +464,9 @@
 
   window.onload = async () => {
     await loadVideos();
+    setTimeout(() => {
+      document.getElementById("splash").classList.add("hide");
+    }, 1400);
   };
 
   async function loadVideos() {
