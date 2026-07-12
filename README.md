@@ -28,7 +28,7 @@ This project blends a clean serverless backend with a soft pink, animated fronte
 ## ✨ Features
 
 - 🎬 **Random Video Endpoint** — instantly fetch a random video from the collection
-- 📊 **Live Video Counter** — always know exactly how many videos are available
+- 📊 **Live Total Available Counter** — always know exactly how many videos are available, growing unlimited as more get added
 - ➕ **Secure Add Endpoint** — add new videos with secret-key protection
 - 🔒 **Keyword Filtering** — automatically blocks inappropriate submissions
 - 🌸 **Animated Web Dashboard** — soft pink theme, floating emoji effects, and a hacker-style matrix rain background
@@ -73,11 +73,11 @@ Returns a single random video from the collection.
 ```
 
 ### `GET /api/list`
-Returns the total number of videos currently available.
+Returns the total number of videos currently available. This number is unlimited — it keeps growing as new videos are added.
 
 ```json
 {
-  "total": 53
+  "total": "unlimited (grows automatically as videos are added)"
 }
 ```
 
